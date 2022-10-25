@@ -1,0 +1,4 @@
+py-cord[speed] ~= 2.2.2
+tortoise-orm ~= 0.19.2
+tortoise-orm[asyncpg] ~= 0.19.2
+python-dotenv
