@@ -6,6 +6,7 @@ class NewUserFilter(IntEnum):
     PFP = 1
     USERNAME = 1 << 1
     AGE = 1 << 2
+    ANY = 1 << 3
 
 
 class Punishment(IntEnum):

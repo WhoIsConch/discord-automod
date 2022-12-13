@@ -9,6 +9,7 @@ from ..helpers import (GuildJoins,
                        )
 from ..helpers.enums import NewUserFilter, Punishment
 from ..database.models import User, Guild
+import string
 
 if TYPE_CHECKING:
     from ..bot import Bot
@@ -89,10 +90,17 @@ class AntiRaid(discord.Cog):
                         )
 
                     elif check.name == "username":
-                        # TODO: Check if username is a legitimate or suspicious username
-                        ...
+                        # TODO: Make this more reliable
+                        for char in member.name:
+                            if char not in string.printable:
+                                checks.append(True)
 
-            if all(checks):
+            if guild.new_user_quarantine & NewUserFilter.ANY:
+                check_func = any
+            else:
+                check_func = all
+                
+            if check_func(checks):
                 await self.quarantine(member, guild, None, "Automod: New user quarantine")
 
     async def quarantine(
